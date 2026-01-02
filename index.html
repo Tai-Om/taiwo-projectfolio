@@ -1,21 +1,196 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Final Submission - Taiwo Omole</title>
-    <style>
-        body { font-family: sans-serif; display: flex; justify-content: center; align-items: center; height: 100vh; background-color: #f0f0f0; margin: 0; }
-        .card { background: white; padding: 2rem; border-radius: 10px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); text-align: center; }
-        h1 { color: #333; }
-        p { color: #666; }
+/* --- LAYOUTS --- */
+        .party-container {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .character-card {
+            flex: 1;
+            min-width: 300px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .stats-row {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        /* --- LINKS & HOVER CURSOR --- */
+        a {
+            color: white;
+            text-decoration: none;
+            display: block;
+            margin: 10px 0;
+            padding-left: 25px; /* Space for the cursor */
+            position: relative;
+            transition: color 0.1s;
+        }
+
+        a:hover {
+            color: #55ff55; /* Green highlighting */
+            text-shadow: 2px 2px black;
+        }
+
+        /* The "Finger" Cursor Animation */
+        a:hover::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 5px;
+            width: 0; 
+            height: 0; 
+            border-top: 8px solid transparent;
+            border-bottom: 8px solid transparent;
+            border-left: 12px solid white; /* The triangle cursor */
+            animation: blink 0.5s infinite alternate;
+        }
+
+        @keyframes blink {
+            from { transform: translateX(0); }
+            to { transform: translateX(5px); }
+        }
+
+        /* --- PROJECT LIST (SHOP STYLE) --- */
+        .shop-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .shop-item {
+            display: flex;
+            justify-content: space-between;
+            border-bottom: 2px dashed #444;
+            padding: 10px 0;
+        }
+
+        .price {
+            color: #ffff00;
+        }
+
+        /* Footer */
+        .footer-text {
+            font-size: 0.7rem;
+            text-align: center;
+            color: #888;
+            margin-top: 20px;
+        }
+
+        /* Responsive */
+        @media (max-width: 600px) {
+            .party-container { flex-direction: column; }
+            body { padding: 10px; }
+        }
     </style>
 </head>
 <body>
-    <div class="card">
-        <h1>Final Project Submission</h1>
-        <p><strong>Name:</strong> Taiwo Omole</p>
-        <p>Nobody here but chickens!</p>
+
+    <!-- SECTION 1: PARTY STATUS (About Me) -->
+    <!-- This mimics the blue boxes at the top of your screenshot -->
+    <div class="party-container" style="width: 100%; max-width: 800px;">
+        
+        <!-- Character Box 1: Intro -->
+        <div class="nes-box character-card">
+            <h2 class="nes-title">PLAYER 1</h2>
+            <div class="stats-row">
+                <span>NAME</span>
+                <span>TAIWO</span>
+            </div>
+            <div class="stats-row">
+                <span>JOB</span>
+                <span>DEV</span>
+            </div>
+            <div class="stats-row">
+                <span>LVL</span>
+                <span>1</span>
+            </div>
+            <hr style="border: 1px solid white; width: 100%;">
+            <p style="font-size: 0.8rem; line-height: 1.8;">
+                A generic Developer appearing in the wild.
+                Skilled in HTML, CSS, and JS magic.
+                Equipped with VS Code.
+            </p>
+        </div>
+
+        <!-- Character Box 2: Stats (Skills) -->
+        <div class="nes-box character-card">
+            <h2 class="nes-title">STATS</h2>
+            <div class="stats-row">
+                <span>HTML</span>
+                <span>99/99</span>
+            </div>
+            <div class="stats-row">
+                <span>CSS</span>
+                <span>85/99</span>
+            </div>
+            <div class="stats-row">
+                <span>JS</span>
+                <span>60/99</span>
+            </div>
+            <div class="stats-row">
+                <span>GIT</span>
+                <span>40/99</span>
+            </div>
+            <br>
+            <div class="stats-row">
+                <span style="color: #ffff00;">EXP</span>
+                <span>READY</span>
+            </div>
+        </div>
     </div>
+
+    <!-- SECTION 2: BATTLE/SHOP (Projects) -->
+    <!-- This mimics the Item/Magic list -->
+    <div class="nes-box">
+        <h2 class="nes-title">PROJECTS</h2>
+        <p style="margin-bottom: 20px;">SELECT A PROJECT TO VIEW:</p>
+        
+        <ul class="shop-list">
+            <li>
+                <a href="#">
+                    <div class="shop-item">
+                        <span>PORTFOLIO SITE</span>
+                        <span class="price">HTML/CSS</span>
+                    </div>
+                </a>
+            </li>
+            <li>
+                <a href="#">
+                    <div class="shop-item">
+                        <span>LOGIN MOCKUP</span>
+                        <span class="price">UI/UX</span>
+                    </div>
+                </a>
+            </li>
+            <li>
+                <a href="#">
+                    <div class="shop-item">
+                        <span>TODO APP</span>
+                        <span class="price">JS</span>
+                    </div>
+                </a>
+            </li>
+        </ul>
+    </div>
+
+    <!-- SECTION 3: COMMAND WINDOW (Contact) -->
+    <div class="nes-box" style="width: 100%; max-width: 800px;">
+        <h2 class="nes-title">COMMAND</h2>
+        <div style="display: flex; justify-content: space-around; flex-wrap: wrap;">
+            <a href="mailto:taiwo.omole@email.com">EMAIL</a>
+            <a href="https://github.com/Tai-Om" target="_blank">GITHUB</a>
+            <a href="#">LINKEDIN</a>
+        </div>
+    </div>
+
+    <!-- FOOTER -->
+    <div class="footer-text">
+        <p>MATRIC NO: [ENTER YOUR MATRIC NUMBER HERE]</p>
+        <p>© 2024 TAIWO OMOLE. FINAL FANTASY TRIBUTE.</p>
+    </div>
+
 </body>
 </html>
