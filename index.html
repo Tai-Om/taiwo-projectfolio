@@ -3,26 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Taiwo Omole | Level 1 Developer</title>
-    <!-- Import NES Font from Google -->
+    <title>Taiwo Omole | Status Screen</title>
     <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
-    
     <style>
-        /* --- NES CORE STYLES --- */
         :root {
             --nes-blue: #0000bc;
             --nes-border: #ffffff;
             --bg-color: #000000;
         }
 
-        * {
-            box-sizing: border-box;
-        }
+        * { box-sizing: border-box; }
 
         body {
             background-color: var(--bg-color);
             color: white;
-            font-family: 'Press Start 2P', cursive; /* This makes it look like 8-bit text */
+            font-family: 'Press Start 2P', cursive;
             margin: 0;
             padding: 20px;
             display: flex;
@@ -32,198 +27,221 @@
             line-height: 1.5;
         }
 
-        /* --- THE BLUE BOX UI --- */
+        /* --- NES BOX SHARED STYLE --- */
         .nes-box {
             background-color: var(--nes-blue);
             border: 4px solid var(--nes-border);
             border-radius: 4px;
-            padding: 25px;
-            margin-bottom: 30px;
+            padding: 5px; /* Tighter padding for FF2 style */
+            margin-bottom: 25px;
             width: 100%;
-            max-width: 800px;
+            max-width: 700px; /* FF2 screen is usually compact */
             box-shadow: 0 0 0 2px black inset; 
             position: relative;
         }
 
         .nes-title {
             position: absolute;
-            top: -16px;
-            left: 20px;
+            top: -14px;
+            left: 15px;
             background-color: var(--nes-blue);
-            padding: 0 10px;
-            color: #ffff00; /* Yellow text */
+            padding: 0 5px;
+            color: #ffff00;
             text-shadow: 2px 2px black;
-            font-size: 1rem;
+            font-size: 0.8rem;
         }
 
-        /* --- LAYOUTS --- */
-        .party-container {
+        /* --- FF2 STATUS SCREEN LAYOUT --- */
+        .ff2-grid {
+            display: grid;
+            grid-template-columns: 1fr 2fr; /* Left col (stats), Right col (derived) */
+            gap: 10px;
+            padding: 15px;
+        }
+
+        /* Top Header Area */
+        .status-header {
             display: flex;
-            gap: 20px;
-            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 20px;
+            padding: 0 10px;
+            border-bottom: 2px solid transparent; /* Spacer */
+        }
+
+        /* The Portrait Box */
+        .portrait-box {
+            width: 64px;
+            height: 64px;
+            border: 2px solid white;
+            background: #000;
+            display: flex;
+            align-items: center;
             justify-content: center;
+            overflow: hidden;
+        }
+        
+        .portrait-box img {
             width: 100%;
-            max-width: 800px;
+            height: 100%;
+            object-fit: cover;
+            image-rendering: pixelated; /* Keeps sprites crisp */
         }
 
-        .character-card {
-            flex: 1;
-            min-width: 300px;
+        /* Name and HP/MP Area */
+        .header-info {
+            flex-grow: 1;
+            margin-left: 20px;
             display: flex;
-            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .hp-mp-block {
+            text-align: right;
+            line-height: 1.8;
+        }
+
+        /* Stat Columns */
+        .stat-line {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 8px;
+            font-size: 0.8rem; /* Slightly smaller to fit text */
+        }
+
+        .stat-label { color: #ffffff; }
+        .stat-val { text-align: right; }
+        
+        /* Special handling for the University Name */
+        .long-text {
+            font-size: 0.6rem; /* Make PAU fit */
+            text-transform: uppercase;
+        }
+
+        /* The Dotted Line Separator */
+        .separator {
+            border-top: 2px dotted white;
+            margin: 15px 10px;
+        }
+
+        /* Weapon/Skill Section at bottom */
+        .skill-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            padding: 0 10px;
+            font-size: 0.7rem;
             gap: 10px;
         }
 
-        .stats-row {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 5px;
-        }
-
-        /* --- LINKS & CURSOR --- */
-        a {
-            color: white;
-            text-decoration: none;
-            display: block;
-            margin: 10px 0;
-            padding-left: 25px;
-            position: relative;
-            transition: color 0.1s;
-        }
-
-        a:hover {
-            color: #55ff55; /* Green highlight */
-            text-shadow: 2px 2px black;
-        }
-
-        a:hover::before {
-            content: '';
-            position: absolute;
-            left: 0;
-            top: 5px;
-            border-top: 8px solid transparent;
-            border-bottom: 8px solid transparent;
-            border-left: 12px solid white; /* Triangle Cursor */
-            animation: blink 0.5s infinite alternate;
-        }
-
-        @keyframes blink {
-            from { transform: translateX(0); }
-            to { transform: translateX(5px); }
-        }
-/* --- SHOP LIST --- */
-        .shop-list {
-            list-style: none;
-            padding: 0;
-        }
-
+        /* --- PROJECT/SHOP SECTION (Kept from before) --- */
+        .shop-list { list-style: none; padding: 0; margin: 0; padding: 15px; }
         .shop-item {
-            display: flex;
-            justify-content: space-between;
-            border-bottom: 2px dashed #444;
-            padding: 10px 0;
+            display: flex; justify-content: space-between;
+            border-bottom: 2px dashed #444; padding: 10px 0;
         }
-
         .price { color: #ffff00; }
 
-        .footer-text {
-            font-size: 0.6rem;
-            text-align: center;
-            color: #666;
-            margin-top: 40px;
-            font-family: sans-serif; /* Readable font for matric number */
-        }
+        /* --- LINKS --- */
+        a { color: white; text-decoration: none; display: block; position: relative; transition: color 0.1s; }
+        a:hover { color: #55ff55; text-shadow: 2px 2px black; }
         
-        /* Fix for hidden text */
-        p, h1, h2, span, div { visibility: visible; }
+        /* Cursor */
+        a:hover::before {
+            content: ''; position: absolute; left: -20px; top: 5px;
+            border-top: 8px solid transparent; border-bottom: 8px solid transparent; border-left: 12px solid white;
+            animation: blink 0.5s infinite alternate;
+        }
+        @keyframes blink { from { transform: translateX(0); } to { transform: translateX(5px); } }
+
+        /* Footer */
+        .footer-text { font-size: 0.6rem; text-align: center; color: #666; margin-top: 30px; font-family: sans-serif; }
     </style>
 </head>
 <body>
 
-    <!-- PARTY SECTION (About) -->
-    <div class="party-container">
-        <!-- Player Stats -->
-        <div class="nes-box character-card">
-            <h2 class="nes-title">PLAYER 1</h2>
-            <div class="stats-row">
-                <span>NAME</span>
-                <span>TAIWO</span>
+    <!-- SECTION 1: FF2 STATUS SCREEN -->
+    <div class="nes-box">
+        
+        <!-- Top Row: Picture | Name | HTML/CSS -->
+        <div class="status-header">
+            <div class="portrait-box">
+                <!-- PLACEHOLDER IMAGE: Replace 'src' below with your file name later -->
+                <img src="https://upload.wikimedia.org/wikipedia/en/2/29/Black_Mage_%28Final_Fantasy%29.png" alt="Avatar">
             </div>
-            <div class="stats-row">
-                <span>JOB</span>
-                <span>DEV</span>
+            
+            <div class="header-info">
+                <div style="padding-top: 10px;">TAIWO<br>OMOLE</div>
+                
+                <div class="hp-mp-block">
+                    <div>HTML &nbsp;90/ 99</div> <!-- &nbsp; adds spacing -->
+                    <div>CSS &nbsp;&nbsp;85/ 99</div>
+                </div>
             </div>
-            <div class="stats-row">
-                <span>LVL</span>
-                <span>1</span>
-            </div>
-            <hr style="border: 1px solid white; width: 100%; margin: 15px 0;">
-            <p style="font-size: 0.8rem;">
-                A generic Developer appearing in the wild.
-                Skilled in HTML, CSS, and JS magic.
-            </p>
         </div>
 
-        <!-- Skills Stats -->
-        <div class="nes-box character-card">
-            <h2 class="nes-title">STATS</h2>
-            <div class="stats-row">
-                <span>HTML</span>
-                <span>99/99</span>
+        <!-- Main Stats Columns -->
+        <div class="ff2-grid">
+            <!-- Left Column (Base Stats) -->
+            <div class="col-left">
+                <div class="stat-line"><span class="stat-label">Python</span> <span>80</span></div>
+                <div class="stat-line"><span class="stat-label">Rust</span>   <span>40</span></div>
+                <div class="stat-line"><span class="stat-label">C++</span>    <span>50</span></div>
+                <div class="stat-line"><span class="stat-label">Art.Int</span><span>75</span></div>
+                <div class="stat-line"><span class="stat-label">Bsc.</span>   <span>Yes</span></div>
+                <div class="stat-line"><span class="stat-label">Comp.Sci</span><span>Def</span></div>
             </div>
-            <div class="stats-row">
-                <span>CSS</span>
-                <span>85/99</span>
+
+            <!-- Right Column (Derived Stats) -->
+            <div class="col-right">
+                <div class="stat-line">
+                    <span class="stat-label">School</span> 
+                    <span class="long-text">Pan-Atlantic</span>
+                </div>
+                <div class="stat-line">
+                    <span class="stat-label">Level</span> 
+                    <span>400L</span>
+                </div>
+                <div class="stat-line">
+                    <span class="stat-label">SQL Hit%</span> 
+                    <span>85%</span>
+                </div>
+                <div class="stat-line">
+                    <span class="stat-label">Evade</span> 
+                    <span>1-10%</span>
+                </div>
+                <div class="stat-line">
+                    <span class="stat-label">M.Pwr</span> 
+                    <span>5</span>
+                </div>
             </div>
-            <div class="stats-row">
-                <span>JS</span>
-                <span>60/99</span>
-            </div>
-            <br>
-            <div class="stats-row">
-                <span style="color: #ffff00;">EXP</span>
-                <span>READY</span>
-            </div>
+        </div>
+
+        <!-- Dotted Separator -->
+        <div class="separator"></div>
+
+        <!-- Bottom Skills (Weapon Proficiencies) -->
+        <div class="skill-grid">
+            <div>Wpn Skill \ VS Code</div>
+            <div>&nbsp; > Git Flow</div>
+            <div>&nbsp; - Linux</div>
+            <div>&nbsp; \ Docker</div>
         </div>
     </div>
 
-    <!-- PROJECTS SECTION (Shop) -->
+    <!-- SECTION 2: PROJECTS (Shop) -->
     <div class="nes-box">
         <h2 class="nes-title">PROJECTS</h2>
-        <p style="margin-bottom: 20px;">SELECT A PROJECT:</p>
-        
-        <ul class="shop-list">
-            <li>
-                <a href="#">
-                    <div class="shop-item">
-                        <span>PORTFOLIO</span>
-                        <span class="price">HTML</span>
-                    </div>
-                </a>
-            </li>
-            <li>
-                <a href="#">
-                    <div class="shop-item">
-                        <span>LOGIN UI</span>
-                        <span class="price">CSS</span>
-                    </div>
-                </a>
-            </li>
-            <li>
-                <a href="#">
-                    <div class="shop-item">
-                        <span>TODO APP</span>
-                        <span class="price">JS</span>
-                    </div>
-                </a>
-            </li>
+        <ul class="shop-list" style="padding-left: 30px;">
+            <li><a href="#"><div class="shop-item"><span>PORTFOLIO</span><span class="price">HTML</span></div></a></li>
+            <li><a href="#"><div class="shop-item"><span>LOGIN MOCKUP</span><span class="price">UI/UX</span></div></a></li>
+            <li><a href="#"><div class="shop-item"><span>TODO APP</span><span class="price">JS</span></div></a></li>
         </ul>
     </div>
 
-    <!-- COMMAND SECTION (Links) -->
-    <div class="nes-box" style="max-width: 800px;">
+    <!-- SECTION 3: LINKS -->
+    <div class="nes-box">
         <h2 class="nes-title">COMMAND</h2>
-        <div style="display: flex; justify-content: space-around; flex-wrap: wrap;">
+        <div style="display: flex; justify-content: space-around; padding: 10px;">
             <a href="mailto:taiwo.omole@email.com">EMAIL</a>
             <a href="https://github.com/Tai-Om" target="_blank">GITHUB</a>
             <a href="#">LINKEDIN</a>
