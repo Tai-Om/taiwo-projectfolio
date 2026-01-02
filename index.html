@@ -1,9 +1,69 @@
-/* --- LAYOUTS --- */
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Taiwo Omole | Level 1 Developer</title>
+    <!-- Import NES Font from Google -->
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+    
+    <style>
+        /* --- NES CORE STYLES --- */
+        :root {
+            --nes-blue: #0000bc;
+            --nes-border: #ffffff;
+            --bg-color: #000000;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: white;
+            font-family: 'Press Start 2P', cursive; /* This makes it look like 8-bit text */
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+            line-height: 1.5;
+        }
+
+        /* --- THE BLUE BOX UI --- */
+        .nes-box {
+            background-color: var(--nes-blue);
+            border: 4px solid var(--nes-border);
+            border-radius: 4px;
+            padding: 25px;
+            margin-bottom: 30px;
+            width: 100%;
+            max-width: 800px;
+            box-shadow: 0 0 0 2px black inset; 
+            position: relative;
+        }
+
+        .nes-title {
+            position: absolute;
+            top: -16px;
+            left: 20px;
+            background-color: var(--nes-blue);
+            padding: 0 10px;
+            color: #ffff00; /* Yellow text */
+            text-shadow: 2px 2px black;
+            font-size: 1rem;
+        }
+
+        /* --- LAYOUTS --- */
         .party-container {
             display: flex;
-            gap: 15px;
+            gap: 20px;
             flex-wrap: wrap;
             justify-content: center;
+            width: 100%;
+            max-width: 800px;
         }
 
         .character-card {
@@ -17,35 +77,33 @@
         .stats-row {
             display: flex;
             justify-content: space-between;
+            margin-bottom: 5px;
         }
 
-        /* --- LINKS & HOVER CURSOR --- */
+        /* --- LINKS & CURSOR --- */
         a {
             color: white;
             text-decoration: none;
             display: block;
             margin: 10px 0;
-            padding-left: 25px; /* Space for the cursor */
+            padding-left: 25px;
             position: relative;
             transition: color 0.1s;
         }
 
         a:hover {
-            color: #55ff55; /* Green highlighting */
+            color: #55ff55; /* Green highlight */
             text-shadow: 2px 2px black;
         }
 
-        /* The "Finger" Cursor Animation */
         a:hover::before {
             content: '';
             position: absolute;
             left: 0;
             top: 5px;
-            width: 0; 
-            height: 0; 
             border-top: 8px solid transparent;
             border-bottom: 8px solid transparent;
-            border-left: 12px solid white; /* The triangle cursor */
+            border-left: 12px solid white; /* Triangle Cursor */
             animation: blink 0.5s infinite alternate;
         }
 
@@ -53,8 +111,7 @@
             from { transform: translateX(0); }
             to { transform: translateX(5px); }
         }
-
-        /* --- PROJECT LIST (SHOP STYLE) --- */
+/* --- SHOP LIST --- */
         .shop-list {
             list-style: none;
             padding: 0;
@@ -67,32 +124,25 @@
             padding: 10px 0;
         }
 
-        .price {
-            color: #ffff00;
-        }
+        .price { color: #ffff00; }
 
-        /* Footer */
         .footer-text {
-            font-size: 0.7rem;
+            font-size: 0.6rem;
             text-align: center;
-            color: #888;
-            margin-top: 20px;
+            color: #666;
+            margin-top: 40px;
+            font-family: sans-serif; /* Readable font for matric number */
         }
-
-        /* Responsive */
-        @media (max-width: 600px) {
-            .party-container { flex-direction: column; }
-            body { padding: 10px; }
-        }
+        
+        /* Fix for hidden text */
+        p, h1, h2, span, div { visibility: visible; }
     </style>
 </head>
 <body>
 
-    <!-- SECTION 1: PARTY STATUS (About Me) -->
-    <!-- This mimics the blue boxes at the top of your screenshot -->
-    <div class="party-container" style="width: 100%; max-width: 800px;">
-        
-        <!-- Character Box 1: Intro -->
+    <!-- PARTY SECTION (About) -->
+    <div class="party-container">
+        <!-- Player Stats -->
         <div class="nes-box character-card">
             <h2 class="nes-title">PLAYER 1</h2>
             <div class="stats-row">
@@ -107,15 +157,14 @@
                 <span>LVL</span>
                 <span>1</span>
             </div>
-            <hr style="border: 1px solid white; width: 100%;">
-            <p style="font-size: 0.8rem; line-height: 1.8;">
+            <hr style="border: 1px solid white; width: 100%; margin: 15px 0;">
+            <p style="font-size: 0.8rem;">
                 A generic Developer appearing in the wild.
                 Skilled in HTML, CSS, and JS magic.
-                Equipped with VS Code.
             </p>
         </div>
 
-        <!-- Character Box 2: Stats (Skills) -->
+        <!-- Skills Stats -->
         <div class="nes-box character-card">
             <h2 class="nes-title">STATS</h2>
             <div class="stats-row">
@@ -130,10 +179,6 @@
                 <span>JS</span>
                 <span>60/99</span>
             </div>
-            <div class="stats-row">
-                <span>GIT</span>
-                <span>40/99</span>
-            </div>
             <br>
             <div class="stats-row">
                 <span style="color: #ffff00;">EXP</span>
@@ -142,26 +187,25 @@
         </div>
     </div>
 
-    <!-- SECTION 2: BATTLE/SHOP (Projects) -->
-    <!-- This mimics the Item/Magic list -->
+    <!-- PROJECTS SECTION (Shop) -->
     <div class="nes-box">
         <h2 class="nes-title">PROJECTS</h2>
-        <p style="margin-bottom: 20px;">SELECT A PROJECT TO VIEW:</p>
+        <p style="margin-bottom: 20px;">SELECT A PROJECT:</p>
         
         <ul class="shop-list">
             <li>
                 <a href="#">
                     <div class="shop-item">
-                        <span>PORTFOLIO SITE</span>
-                        <span class="price">HTML/CSS</span>
+                        <span>PORTFOLIO</span>
+                        <span class="price">HTML</span>
                     </div>
                 </a>
             </li>
             <li>
                 <a href="#">
                     <div class="shop-item">
-                        <span>LOGIN MOCKUP</span>
-                        <span class="price">UI/UX</span>
+                        <span>LOGIN UI</span>
+                        <span class="price">CSS</span>
                     </div>
                 </a>
             </li>
@@ -176,8 +220,8 @@
         </ul>
     </div>
 
-    <!-- SECTION 3: COMMAND WINDOW (Contact) -->
-    <div class="nes-box" style="width: 100%; max-width: 800px;">
+    <!-- COMMAND SECTION (Links) -->
+    <div class="nes-box" style="max-width: 800px;">
         <h2 class="nes-title">COMMAND</h2>
         <div style="display: flex; justify-content: space-around; flex-wrap: wrap;">
             <a href="mailto:taiwo.omole@email.com">EMAIL</a>
@@ -189,7 +233,7 @@
     <!-- FOOTER -->
     <div class="footer-text">
         <p>MATRIC NO: [ENTER YOUR MATRIC NUMBER HERE]</p>
-        <p>© 2024 TAIWO OMOLE. FINAL FANTASY TRIBUTE.</p>
+        <p>© 2024 TAIWO OMOLE.</p>
     </div>
 
 </body>
